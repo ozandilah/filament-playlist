@@ -20,7 +20,7 @@ class CountryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-flag';
     protected static ?string $navigationLabel = 'Country';
 
-    protected static ?string $modelLabel = 'Country Model';
+    protected static ?string $modelLabel = 'Employee Country';
 
     protected static ?string $navigationGroup = 'System Management';
 
@@ -49,11 +49,22 @@ class CountryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('code')
-                    ->searchable(),
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('phonecode')
-                    ->numeric()
+                    ->searchable(isIndividual: true, isGlobal: false)
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

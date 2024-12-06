@@ -47,11 +47,14 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('state_id')
+                Tables\Columns\TextColumn::make('state.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('City Name')
+                    ->sortable()
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -60,7 +63,7 @@ class CityResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultSort('state.name', 'desc')
             ->filters([
                 //
             ])
