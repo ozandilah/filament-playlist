@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StatesResource\Pages;
-use App\Filament\Resources\StatesResource\RelationManagers;
-use App\Models\States;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\States;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\StatesResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Components\Section as ComponentsSection;
 
 class StatesResource extends Resource
 {
@@ -77,6 +79,19 @@ class StatesResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                ComponentsSection::make('State Information')
+                    ->schema([
+                        TextEntry::make('country.name')
+                            ->label('Country Name'),
+                        TextEntry::make('name')
+                            ->label('State Name'),
+                    ])->columns(2)
             ]);
     }
 
